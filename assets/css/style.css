@@ -3,24 +3,3 @@
     padding: 0;
     box-sizing: border-box;
 }
-
-.form-group {
-    padding: 12px;
-}
-
-.city-label {
-    font-size: 30px;
-    font-weight: 600;
-}
-
-.city-input {
-    width: 100%;
-    height: 40px;
-    border-color: lightgrey;
-    border-width: thin;
-    padding: 0 15px;
-}
-
-.search-button {
-    padding: 10px 15px;
-}
