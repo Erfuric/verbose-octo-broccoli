@@ -25,3 +25,9 @@ THEN I am again presented with current and future conditions for that city
 
 https://openweathermap.org/forecast5
 
+
+
+# Screenshots from github active page
+
+<p><img src="assets/images/blank screenshot.PNG"/></p>
+<p><img src="assets/images/search Screenshot.PNG"/></p>
