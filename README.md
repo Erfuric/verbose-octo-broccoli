@@ -1,5 +1,6 @@
 # verbose-octo-broccoli
-Website to check weather using third party API
+
+Website to check weather using server side API
 
 
 # User Story
@@ -20,7 +21,7 @@ THEN I am presented with a 5-day forecast that displays the date, an icon repres
 WHEN I click on a city in the search history
 THEN I am again presented with current and future conditions for that city
 
-# Third party API for site
+# Server Side API
 
 https://openweathermap.org/forecast5
 
