@@ -1,6 +1,6 @@
 // global variables for site
 const apiKey = "1c02a9178871e0c579bf11abd8cecbbb";
-const forecastUrlStart = 'http://api.openweathermap.org/data/2.5/forecast?q='
+const forecastUrlStart = 'https://api.openweathermap.org/data/2.5/forecast?q='
 const forecastUrlEnd = '&appid='
 
 // Add event listener to form
