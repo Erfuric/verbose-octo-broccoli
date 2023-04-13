@@ -9,7 +9,7 @@ document.getElementById("city-search").addEventListener("submit", function(event
     event.preventDefault();
     var cityInput = document.getElementById("city").value;
     var currentUrl = currentUrlStart + cityInput + urlEnd + apiKey;
-    var forecastUrl = forecastUrlStart + cityInput + forecastUrlEnd + apiKey;
+    var forecastUrl = forecastUrlStart + cityInput + urlEnd + apiKey;
     // Use fetch to make API call to OpenWeatherMap API for current weather
     fetch(currentUrl)
     .then(response => response.json())
@@ -77,7 +77,7 @@ function displayPreviousSearches() {
         // Add event listener to search history
         searchElem.addEventListener("click", function() {
             var currentUrl = currentUrlStart + previousSearches[i] + urlEnd + apiKey;
-            var forecastUrl = forecastUrlStart + previousSearches[i] + forecastUrlEnd + apiKey;
+            var forecastUrl = forecastUrlStart + previousSearches[i] + urlEnd + apiKey;
             // Use fetch to make API call to OpenWeatherMap API for current weather
             fetch(currentUrl)
             .then(response => response.json())
