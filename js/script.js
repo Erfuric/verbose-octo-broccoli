@@ -1,5 +1,5 @@
 // global variables for site
-const apiKey = process.env.API_KEY;
+const apiKey = "";
 const currentUrlStart = 'https://api.openweathermap.org/data/2.5/weather?q=';
 const forecastUrlStart = 'https://api.openweathermap.org/data/2.5/forecast?q=';
 const urlEnd = '&appid=';
@@ -24,12 +24,16 @@ document.getElementById("city-search").addEventListener("submit", function(event
         cityElem.textContent = current.name;
         const dateElem = document.createElement("p");
         dateElem.textContent = new Date().toLocaleDateString();
+        const tempKelvin = current.main.temp;
+        const tempCelsius = Math.round(tempKelvin - 273.15);
         const tempElem = document.createElement("p");
-        tempElem.textContent = "Temperature: " + current.main.temp + "F";
+        tempElem.textContent = "Temperature: " + tempCelsius + "°C";
         const humidityElem = document.createElement("p");
         humidityElem.textContent = "Humidity: " + current.main.humidity + "%";
+        const windMetersPerSecond = current.wind.speed;
+        const windKmPerHour = Math.round(windMetersPerSecond * 3.6);
         const windElem = document.createElement("p");
-        windElem.textContent = "Wind Speed: " + current.wind.speed + " MPH";
+        windElem.textContent = "Wind Speed: " + windKmPerHour + " km/h";
         // Append the elements to the current weather div
         currentDiv.appendChild(cityElem);
         currentDiv.appendChild(dateElem);
@@ -92,12 +96,16 @@ function displayPreviousSearches() {
                 cityElem.textContent = current.name;
                 const dateElem = document.createElement("p");
                 dateElem.textContent = new Date().toLocaleDateString();
+                const tempKelvin = current.main.temp;
+                const tempCelsius = Math.round(tempKelvin - 273.15);
                 const tempElem = document.createElement("p");
-                tempElem.textContent = "Temperature: " + current.main.temp + "F";
+                tempElem.textContent = "Temperature: " + tempCelsius + "°C";
                 const humidityElem = document.createElement("p");
                 humidityElem.textContent = "Humidity: " + current.main.humidity + "%";
+                const windMetersPerSecond = current.wind.speed;
+                const windKmPerHour = Math.round(windMetersPerSecond * 3.6);
                 const windElem = document.createElement("p");
-                windElem.textContent = "Wind Speed: " + current.wind.speed + " MPH";
+                windElem.textContent = "Wind Speed: " + windKmPerHour + " km/h";
                 // Append the elements to the current weather div
                 currentDiv.appendChild(cityElem);
                 currentDiv.appendChild(dateElem);
@@ -111,20 +119,37 @@ function displayPreviousSearches() {
             fetch(forecastUrl)
             .then(response => response.json())
             .then(data => {
-                const forecast = data.list;
-                // Get the div where the forecast will be displayed
-                const forecastDiv = document.getElementById("five-day");
-                // Clear the div before displaying new forecast
-                forecastDiv.innerHTML = "";
-                for (let i = 0; i < forecast.length; i++) {
-                    // Create a new div for each forecast
-                    const forecastElem = document.createElement("div");
-                    forecastElem.innerHTML = forecast[i].dt_txt + ": " + forecast[i].main.temp + "F";
-                    // Append the forecast to the forecast div
-                    forecastDiv.appendChild(forecastElem);
-                }
+            const forecast = data.list;
+            // Get the div where the forecast will be displayed
+            const forecastDiv = document.getElementById("five-day");
+            // Clear the div before displaying new forecast
+            forecastDiv.innerHTML = "";
+            for (let i = 0; i < forecast.length; i++) {
+                // Create a new div for each forecast
+                const forecastElem = document.createElement("div");
+                // Get the temperature in Celsius
+                const tempKelvin = forecast[i].main.temp;
+                const tempCelsius = Math.round(tempKelvin - 273.15);
+                forecastElem.innerHTML = forecast[i].dt_txt + ": " + tempCelsius + "°C";
+                // Get the wind speed in km/h
+                const windMetersPerSecond = forecast[i].wind.speed;
+                const windKmPerHour = Math.round(windMetersPerSecond * 3.6);
+                const windElem = document.createElement("span");
+                windElem.textContent = " | Wind Speed: " + windKmPerHour + " km/h";
+                forecastElem.appendChild(windElem);
+                // Append the forecast to the forecast div
+                forecastDiv.appendChild(forecastElem);
+            }
+
+            // Store the search query in local storage
+            const previousSearches = JSON.parse(localStorage.getItem("previousSearches")) || [];
+            previousSearches.push(cityInput);
+            localStorage.setItem("previousSearches", JSON.stringify(previousSearches));
+            // Display the previous searches
+            displayPreviousSearches();
             })
             .catch(error => console.log(error));
+
         });
         searchHistoryDiv.appendChild(searchElem);
     }
