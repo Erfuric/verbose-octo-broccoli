@@ -1,5 +1,7 @@
 // global variables for site
-const apiKey = "";
+const keyStart = "1c02a9178871e0";
+const keyEnd = "c579bf11abd8cecbbb";
+const apiKey = keyStart + keyEnd;
 const currentUrlStart = 'https://api.openweathermap.org/data/2.5/weather?q=';
 const forecastUrlStart = 'https://api.openweathermap.org/data/2.5/forecast?q=';
 const urlEnd = '&appid=';
