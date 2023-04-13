@@ -138,12 +138,18 @@ html {
     margin-bottom: 1rem;
   }
   
+  @media (min-width: 576px) {
+    #five-day .row {
+      flex-direction: row;
+    }
+  }
 /* Five day forecast styles */
 
 .forecast {
     display: flex;
     flex-wrap: wrap;
     margin-top: 20px;
+    flex-direction: row;
   }
   
   .forecast-day {
