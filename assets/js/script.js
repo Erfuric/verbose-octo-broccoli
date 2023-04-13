@@ -24,6 +24,25 @@ document.getElementById("city-search").addEventListener("submit", function(event
             // Append the forecast to the forecast div
             forecastDiv.appendChild(forecastElem);
         }
+
+        // Store the search query in local storage
+        const previousSearches = JSON.parse(localStorage.getItem("previousSearches")) || [];
+        previousSearches.push(cityInput);
+        localStorage.setItem("previousSearches", JSON.stringify(previousSearches));
+        // Display the previous searches
+        displayPreviousSearches();
     })
     .catch(error => console.log(error));
 });
+
+// Display the previous searches
+function displayPreviousSearches() {
+    const previousSearches = JSON.parse(localStorage.getItem("previousSearches")) || [];
+    const searchHistoryDiv = document.getElementById("search-history");
+    searchHistoryDiv.innerHTML = "";
+    for (let i = 0; i < previousSearches.length; i++) {
+        const searchElem = document.createElement("div");
+        searchElem.innerHTML = previousSearches[i];
+        searchHistoryDiv.appendChild(searchElem);
+    }
+}
